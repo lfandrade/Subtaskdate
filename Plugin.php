@@ -76,12 +76,15 @@ class Plugin extends Base
 
     public function beforeSave(array &$values)
     {
+        $values = $this->dateParser->convert($values, array('begin_date'));
         $values = $this->dateParser->convert($values, array('due_date'));
         $this->helper->model->resetFields($values, array('due_date'));
+        $this->helper->model->resetFields($values, array('begin_date'));
     }
 
      public function applyDateFilter(Table $query)
     {
+        $query->lte(SubtaskModel::TABLE.'.begin_date', time());
         $query->lte(SubtaskModel::TABLE.'.due_date', time());
     }
 
@@ -92,21 +95,21 @@ class Plugin extends Base
 
     public function getPluginDescription()
     {
-        return t('Add a new due date field to subtasks');
+        return t('Add a new begin and due date field to subtasks');
     }
 
     public function getPluginAuthor()
     {
-        return 'Manuel Raposo';
+        return 'Manuel Raposo fork by Luis Andrade';
     }
 
     public function getPluginVersion()
     {
-        return '1.1.2';
+        return '1.1.3F';
     }
 
     public function getPluginHomepage()
     {
-        return 'https://github.com/eSkiSo/Subtaskdate';
+        return 'https://github.com/lfandrade/Subtaskdate';
     }
 }

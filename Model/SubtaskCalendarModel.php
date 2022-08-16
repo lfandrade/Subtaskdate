@@ -35,7 +35,7 @@ class SubtaskCalendarModel extends Base
             ->gte('due_date', strtotime($start))
             ->lte('due_date', strtotime($end))
             ->neq('status', 2)
-            ->columns('task_id', 'title', 'due_date')
+            ->columns('task_id', 'title', 'begin_date', 'due_date')
             ->findAll();
             
          $events = array();

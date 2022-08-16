@@ -14,7 +14,7 @@ use Kanboard\Api\Procedure\BaseProcedure;
  */
 class NewSubtaskProcedure extends BaseProcedure
 {
-    public function createSubtaskdd($task_id, $title, $user_id = 0, $time_estimated = 0, $time_spent = 0, $status = 0, $due_date = 0)
+    public function createSubtaskdd($task_id, $title, $user_id = 0, $time_estimated = 0, $time_spent = 0, $status = 0, $begin_date = 0, $due_date = 0)
     {
         TaskAuthorization::getInstance($this->container)->check('subtaskProcedure', 'createSubtask', $task_id);
         
@@ -25,6 +25,7 @@ class NewSubtaskProcedure extends BaseProcedure
             'time_estimated' => $time_estimated,
             'time_spent' => $time_spent,
             'status' => $status,
+            'begin_date' => $begin_date,
             'due_date' => $due_date,
         );
 
@@ -32,7 +33,7 @@ class NewSubtaskProcedure extends BaseProcedure
         return $valid ? $this->subtaskModel->create($values) : false;
     }
     
-    public function updateSubtaskdd($id, $task_id, $title = null, $user_id = null, $time_estimated = null, $time_spent = null, $status = null, $due_date = null)
+    public function updateSubtaskdd($id, $task_id, $title = null, $user_id = null, $time_estimated = null, $time_spent = null, $status = null, $begin_date = null, $due_date = null)
     {
         TaskAuthorization::getInstance($this->container)->check($this->getClassName(), 'updateSubtask', $task_id);
         
@@ -44,6 +45,7 @@ class NewSubtaskProcedure extends BaseProcedure
             'time_estimated' => $time_estimated,
             'time_spent' => $time_spent,
             'status' => $status,
+            'begin_date' => $begin_date,
             'due_date' => $due_date,
         );
         foreach ($values as $key => $value) {
